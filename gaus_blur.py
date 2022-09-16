@@ -1,7 +1,7 @@
 import cv2
 import numpy
 
-grey = cv2.imread("img/hb_2.jpg")
+grey = cv2.imread("img/hb_2.jpg", cv2.IMREAD_GRAYSCALE)
 grey_copy = grey.copy()
 n = 5
 matr_gauss = [[0 for i in range(0,n)]  for i in range(0,n)]
@@ -30,9 +30,8 @@ def gauss_blur(ker, foto_grey):
             sum_value = 0
             for k in range(0,4):
                 for l in range(0,4):
-                    sum_value += ker[k][l]*foto_grey[i+k][j+l][0]
-            for k in range(0,3):
-                foto_grey[i+2][j+2][k] = sum_value
+                    sum_value += ker[k][l]*foto_grey[i+k][j+l]
+                foto_grey[i+2][j+2] = sum_value
     return foto_grey
 
 new_grey = gauss_blur(matr_gauss, grey.copy())
