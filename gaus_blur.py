@@ -31,7 +31,7 @@ def gauss_blur(ker, foto_grey):
             for k in range(0,4):
                 for l in range(0,4):
                     sum_value += ker[k][l]*foto_grey[i+k][j+l]
-                foto_grey[i+2][j+2] = sum_value
+            foto_grey[i+2][j+2] = sum_value
     return foto_grey
 
 new_grey = gauss_blur(matr_gauss, grey.copy())

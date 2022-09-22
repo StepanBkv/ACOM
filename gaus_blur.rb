@@ -52,9 +52,9 @@ class ImageWindow < FXMainWindow
     # Invoke base class initializer first
     super(app, 'Размытие Гаусса', opts: DECOR_ALL, width: 1420, height: 960)
      
-   # photo = ImageList.new("img/hb_2.jpg")
-   # gauss_init(photo)
-   # photo.write("img/new_hb_2.jpg")
+   photo = ImageList.new("img/hb_2.jpg")
+   gauss_init(photo)
+   photo.write("img/new_hb_2.jpg")
   @album_view = AlbumView.new(self, [Photo.new("img/new_hb_2.jpg"), Photo.new("img/hb_2.jpg")])
   label1 = FXLabel.new(self, "С размытием.", :height => 40, :width => 160, :opts => LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH|LAYOUT_FIX_X|LAYOUT_FIX_Y,
                          :x => 280, :y => 910)
@@ -70,7 +70,7 @@ class ImageWindow < FXMainWindow
   end
 
   def gauss_init img
-    n = 5
+    n = 30
     matr_gauss = (0..n-1).map{|i|[]}
     sum_matr = 0 
     (0..n-1).each{|i| (0..n-1).each{|j| matr_gauss[i][j] = gauss(i,j); sum_matr += matr_gauss[i][j]}}
@@ -80,23 +80,14 @@ class ImageWindow < FXMainWindow
 
   def gauss x, y
     a = b = 2
-    sig = 1
+    sig = 5
     (1 / (2 * PI * sig ** 2)) * Math.exp(-((x - a) ** 2 + (y - b) ** 2) / (2 * sig ** 2))
   end
 
   def gauss_blur ker, foto_grey
-    for i in (0..697)
-        for j in (0..883)
-            sum_value = 0
-            for k in (0..4)
-                for l in (0..4)
-                    sum_value += ker[k][l]*foto_grey[0].pixel_color(i+k,j+l).red
-            foto_grey[0].pixel_color(i+2,j+2, Pixel.new(sum_value,sum_value,sum_value,65535))
-    end
-        end
-            end
-                end
-    foto_grey
+    (0..697).each{|i| (0..883).each{|j| sum_value = (0..4).map{ |k| (0..4).map{ |l| ker[k][l]*foto_grey[0].pixel_color(i+k,j+l).red
+      }.sum}.sum;foto_grey[0].pixel_color(i+2,j+2, Pixel.new(sum_value.to_i,sum_value.to_i,sum_value.to_i,65535))}}
+   foto_grey
   end
 
 end
