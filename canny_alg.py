@@ -108,14 +108,14 @@ def canny_alg(img, size, low, high):
 @njit
 def canny(img, size, low, high):
     img_1, size, low, high = canny_alg(img, size, low, high)
-    # img_1 = doubleFiltr(img, size, low, high)
+    img_1 = doubleFiltr(img, size, low, high)
     return img_1
 
 def main():
     size = 3
-    img_blur = cv2.imread("img/new_hb_2.jpg", cv2.COLOR_BGR2GRAY)
-    # img_blur = cv2.blur(img,(5,5))
-    img_canny = canny(img_blur, size, 70, 100)
+    img = cv2.imread("img/oxxy_3.png", cv2.COLOR_BGR2GRAY)
+    img_blur = cv2.blur(img,(1,1))
+    img_canny = canny(img_blur, size, 145, 151)
     cv2.imwrite("img/photo_canny_5.jpg", img_canny)
     cv2.namedWindow("Lab", cv2.WINDOW_AUTOSIZE)
     cv2.imshow("Lab", img_canny)
