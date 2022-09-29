@@ -113,9 +113,9 @@ def canny(img, size, low, high):
 
 def main():
     size = 3
-    img = cv2.imread("img/oxxy_3.png", cv2.COLOR_BGR2GRAY)
+    img = cv2.imread("img/grushi.jpg", cv2.COLOR_BGR2GRAY)
     img_blur = cv2.blur(img,(1,1))
-    img_canny = canny(img_blur, size, 145, 151)
+    img_canny = canny(img_blur, size, 100, 150)
     cv2.imwrite("img/photo_canny_5.jpg", img_canny)
     cv2.namedWindow("Lab", cv2.WINDOW_AUTOSIZE)
     cv2.imshow("Lab", img_canny)
