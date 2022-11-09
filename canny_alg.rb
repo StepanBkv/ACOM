@@ -1,8 +1,9 @@
-require 'fox16'
+require "fox16"
 require 'rmagick'
 include Math
 include Magick
 include Fox
+require 'tenderjit'
 
 class Photo
   
@@ -52,6 +53,7 @@ class ImageWindow < FXMainWindow
     # Invoke base class initializer first
     super(app, 'Размытие Гаусса', opts: DECOR_ALL, width: 1360, height: 760)
     photo = ImageList.new("img/grushi.jpg")
+    jit = TenderJIT.new
     photo.resize_to_fill(443,600).write("img/hb_resize.jpg")
     photo = photo.channel(GrayChannel)
     photo = gauss_init(photo)

@@ -1,0 +1,3 @@
+/home/jframe/PycharmProjects/acom/CMakeFiles/untitled.dir
+/home/jframe/PycharmProjects/acom/CMakeFiles/edit_cache.dir
+/home/jframe/PycharmProjects/acom/CMakeFiles/rebuild_cache.dir

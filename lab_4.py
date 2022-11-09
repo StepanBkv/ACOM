@@ -24,7 +24,7 @@ while (True):
 	if contours != ():
 		countr_now = cv2.contourArea(contours[0])
 		if countr_now >= countr:
-			video_writer.write(frame_1)
+			video_writer.write(old_frame_1)
 		countr = countr_now
 	if cv2.waitKey(1) & 0xFF == ord('q'):
 		break
