@@ -3,6 +3,7 @@
 #include "string"
 
 using namespace cv;
+using namespace std;
 
 //int main(int argc, char** argv )
 //{
@@ -87,12 +88,14 @@ int main() {
     Mat image2;
     namedWindow("Display window");
     VideoCapture cap(1);
-    Rect r = Rect(0, 0, 1280, 360); //1280 × 720
-    Rect r2 = Rect(640, 0, 640, 720); //1280 × 720
+    int centW = cap.get(CAP_PROP_FRAME_WIDTH);
+    int centH = cap.get(CAP_PROP_FRAME_HEIGHT);
+    cout << centW << endl << centH;
+    // Rect r = Rect(0, 0, centW, centH); //640 × 480
+    Rect r2 = Rect(0, 0, centW, centH); //640 × 480
 
-    int centH = 360, centW = 640;
     Vec3b vec;
-
+    VideoWriter video("outcpp_3.avi", VideoWriter::fourcc('M','J','P','G'), 20, Size(centW,centH));
     while (true) {
         cap >> image;
 
@@ -116,16 +119,15 @@ int main() {
             vec2[2] = 255;
         }
 
-        rectangle(image, r, Scalar(vec2), 1, 8, 0);
         rectangle(image, r2, Scalar(vec2), 1, 8, 0);
-
+        // rectangle(image, r2, Scalar(vec2), 1, 8, 0);
+        // line(image, Point(centW/2 , centH/2 -10), Point(centW/2, centH/2 +10), (255,0,0), 2);
+        // line(image, Point(centW/2 -10, centH/2), Point(centW/2 +10, centH/2), (255,56,22), 2);
         imshow("Display window2", image2);
         imshow("Display window", image);
-        waitKey(25);
+        video.write(image2);
+        char c = (char)waitKey(1);
+        if( c == 27 ) break;
     }
     return 0;
 }
-
-
-//cmake .
-//make
